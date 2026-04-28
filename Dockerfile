@@ -7,8 +7,11 @@ RUN apt-get update && apt-get install -y curl \
     && chmod +x /usr/local/bin/hysteria \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /var/www/masq 
+
 WORKDIR /app
 COPY config.yaml /etc/hysteria/config.yaml
+COPY index.html /vat/www/masq
 
 EXPOSE 443/udp
 
