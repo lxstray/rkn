@@ -7,8 +7,14 @@ RUN apt-get update \
         wget \
         gnupg \
         software-properties-common \
+    && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-CMD ["bash"]
+COPY server.js .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
