@@ -15,6 +15,6 @@ masquerade:
   type: file
   file:
     dir: /var/www/masq
-   listenHTTP: :80
-   listenHTTPS: :443
-   forceHTTPS: true
+  listenHTTP: :80
+  listenHTTPS: :443
+  forceHTTPS: true
