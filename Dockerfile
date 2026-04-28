@@ -1,20 +1,16 @@
 FROM ubuntu:24.04
+
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-    && apt-get install -y \
-        curl \
-        wget \
-        gnupg \
-        software-properties-common \
-    && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt-get install -y nodejs \
+RUN apt-get update && apt-get install -y curl \
+    && curl -fsSL https://github.com/apernet/hysteria/releases/latest/download/hysteria-linux-amd64 -o /usr/local/bin/hysteria \
+    && chmod +x /usr/local/bin/hysteria \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+COPY config.yaml /etc/hysteria/config.yaml
 
-COPY server.js .
+EXPOSE 443/udp
 
-EXPOSE 3000
-
-CMD ["node", "server.js"]
+# Главный процесс — hysteria server
+CMD ["hysteria", "server", "-c", "/etc/hysteria/config.yaml"]

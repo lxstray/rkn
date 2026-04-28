@@ -1,0 +1,20 @@
+listen: 0.0.0.0:443
+
+acme:
+  type: http
+  domains:
+    - rkn-production.up.railway.app
+  email: cursor6obhod@gmail.com
+
+auth:
+  type: userpass
+  userpass:
+    Admin: 088109d7499b0af12d63211408bcffd4
+
+masquerade:
+  type: file
+  file:
+    dir: /var/www/masq
+   listenHTTP: :80
+   listenHTTPS: :443
+   forceHTTPS: true
