@@ -1,19 +1,14 @@
-FROM ubuntu:24.04
+FROM tobyxdd/hysteria:v2
 
-ENV DEBIAN_FRONTEND=noninteractive
+RUN apk add --no-cache ca-certificates tzdata
 
-RUN apt-get update && apt-get install -y curl \
-    && curl -fsSL https://github.com/apernet/hysteria/releases/latest/download/hysteria-linux-amd64 -o /usr/local/bin/hysteria \
-    && chmod +x /usr/local/bin/hysteria \
-    && rm -rf /var/lib/apt/lists/*
+# Создаём папки
+RUN mkdir -p /etc/hysteria /var/www/masq
 
-RUN mkdir -p /var/www/masq 
-
-WORKDIR /app
+# Копируем конфиг и заглушку сайта
 COPY config.yaml /etc/hysteria/config.yaml
-COPY index.html /vat/www/masq
+COPY index.html /var/www/masq/index.html
 
 EXPOSE 443/udp
 
-# Главный процесс — hysteria server
 CMD ["hysteria", "server", "-c", "/etc/hysteria/config.yaml"]
