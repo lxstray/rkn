@@ -11,4 +11,4 @@ COPY index.html /var/www/masq/index.html
 
 EXPOSE 443/udp
 
-CMD ["hysteria", "server", "-c", "/etc/hysteria/config.yaml"]
+CMD ["server", "-c", "/etc/hysteria/config.yaml"]
